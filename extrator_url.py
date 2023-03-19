@@ -5,6 +5,7 @@ class Extrator_url:
     def __init__(self, url):
         self.url = self.sanitiza_url(url)
         self.__valida_url()
+        self.dolar_real = 5.50
 
     def sanitiza_url(self, url):
         if type(url) == str:
@@ -21,8 +22,7 @@ class Extrator_url:
 
         if not match:
             raise ValueError("A URL nao e valida")
-        else:
-            print('A URL e valida')
+
 
 
     def get_url_base(self):
@@ -46,8 +46,29 @@ class Extrator_url:
 
         return valor
     
+    def converte_dolar_real(self):
+        qtd_dolar = int(self.get_valor_parametro('quantidade'))
+        qtd_reais = qtd_dolar*self.dolar_real
+
+        resultado = 'Valor em dolares:      $' + self.get_valor_parametro('quantidade') + '\n' + \
+                    'Conversao para reais: R$' + str(qtd_reais)
+        
+        return resultado
+
+    
+    # Implementando metodos especiais na classe
+    def __len__(self):
+        return len(self.url)
+    
+    def __str__(self):
+        return  self.url + "\n" + \
+                "URL base: " + self.get_url_base() + "\n" + \
+                "Parametros: " + self.get_url_parametros()
+    
+    def __eq__(self, other):
+        return self.url == other.url
 
 url = 'https://www.bytebank.com.br/cambio?quantidade=100&moedaOrigem=real&moedaDestino=dolar'
 classe = Extrator_url(url)
-valor_quantidade = classe.get_valor_parametro('quantidade')
-print(valor_quantidade)
+
+print(classe.converte_dolar_real())
