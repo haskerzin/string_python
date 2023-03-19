@@ -1,8 +1,9 @@
 # url = "bytebank.com/cambio?quantidade=100&moedaOrigem=real&moedaDestino=dolar"
+
 url = ' '
 
 # Sanitização da URL
-url = url.replace(" ", "")
+url = url.strip()
 
 
 indice_interrogacao = url.find('?')
